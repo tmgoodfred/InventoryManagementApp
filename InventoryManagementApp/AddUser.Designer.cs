@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddUserForm));
             usernameTxt = new TextBox();
             passwordTxt = new MaskedTextBox();
             passwordConfirmTxt = new MaskedTextBox();
@@ -130,6 +131,7 @@
             Controls.Add(passwordConfirmTxt);
             Controls.Add(passwordTxt);
             Controls.Add(usernameTxt);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AddUserForm";
             Text = "Add User";
             ResumeLayout(false);

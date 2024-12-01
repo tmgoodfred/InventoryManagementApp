@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewProductInformation));
             productImagePB = new PictureBox();
             productNameTxt = new TextBox();
             descriptionTxt = new TextBox();
@@ -90,6 +91,7 @@
             Controls.Add(descriptionTxt);
             Controls.Add(productNameTxt);
             Controls.Add(productImagePB);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ViewProductInformation";
             Text = "ViewProductInformation";
             ((System.ComponentModel.ISupportInitialize)productImagePB).EndInit();

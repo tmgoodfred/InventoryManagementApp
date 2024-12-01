@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InventoryScreen));
             RefreshBtn = new Button();
             AddProductBtn = new Button();
             dataGridView1 = new DataGridView();
@@ -94,8 +95,9 @@
             Controls.Add(dataGridView1);
             Controls.Add(AddProductBtn);
             Controls.Add(RefreshBtn);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "InventoryScreen";
-            Text = "Form1";
+            Text = "Inventory";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }

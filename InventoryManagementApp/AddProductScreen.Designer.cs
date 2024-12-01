@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddProductScreen));
             productNameTxt = new TextBox();
             productDescriptionTxt = new TextBox();
             productPriceTxt = new TextBox();
@@ -151,6 +152,7 @@
             Controls.Add(productPriceTxt);
             Controls.Add(productDescriptionTxt);
             Controls.Add(productNameTxt);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AddProductScreen";
             Text = "AddProductScreen";
             ResumeLayout(false);
