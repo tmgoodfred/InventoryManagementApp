@@ -42,6 +42,7 @@
             RefreshBtn.TabIndex = 0;
             RefreshBtn.Text = "Refresh Data";
             RefreshBtn.UseVisualStyleBackColor = true;
+            RefreshBtn.Click += RefreshBtn_Click;
             // 
             // AddProductBtn
             // 
@@ -51,6 +52,7 @@
             AddProductBtn.TabIndex = 1;
             AddProductBtn.Text = "Add Product";
             AddProductBtn.UseVisualStyleBackColor = true;
+            AddProductBtn.Click += AddProductBtn_Click;
             // 
             // dataGridView1
             // 
@@ -60,7 +62,7 @@
             dataGridView1.Size = new Size(1049, 669);
             dataGridView1.TabIndex = 2;
             // 
-            // Form1
+            // InventoryScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -68,7 +70,7 @@
             Controls.Add(dataGridView1);
             Controls.Add(AddProductBtn);
             Controls.Add(RefreshBtn);
-            Name = "Form1";
+            Name = "InventoryScreen";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);

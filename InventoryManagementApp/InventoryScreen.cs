@@ -32,5 +32,17 @@ namespace InventoryManagementApp
             // Bind the DataTable to the DataGridView
             dataGridView1.DataSource = table;
         }
+
+        private void RefreshBtn_Click(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+        private void AddProductBtn_Click(object sender, EventArgs e)
+        {
+            AddProductScreen addProductScreen = new AddProductScreen(_dbFunctions);
+            addProductScreen.Show();
+            LoadData();
+        }
     }
 }

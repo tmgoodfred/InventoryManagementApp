@@ -109,6 +109,21 @@ namespace InventoryManagementApp
             return inventory;
         }
 
+        public void AddInventory(Inventory item)
+        {
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                var query = "INSERT INTO Inventory (ProductID, ProductAmount) VALUES (@ProductID, @ProductAmount)";
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ProductID", item.ProductID);
+                    command.Parameters.AddWithValue("@ProductAmount", item.Quantity);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
         public void AddUser(string userName, string userPassword, DateTime createDate, string accessLevel)
         {
             using (var connection = new MySqlConnection(connectionString))
