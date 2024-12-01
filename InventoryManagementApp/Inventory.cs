@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InventoryManagementApp
 {
-    internal class Inventory
+    public class Inventory
     {
         public int ProductID { get; set; }
         public int Quantity { get; set; }

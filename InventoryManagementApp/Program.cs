@@ -1,32 +1,38 @@
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Windows.Forms;
+using Microsoft.Extensions.Configuration.UserSecrets;
+using Microsoft.Extensions.DependencyInjection;
+
+[assembly: UserSecretsId("8e301d9a-0bc0-48c9-b6c2-4cec06d799b4")]
 
 namespace InventoryManagementApp
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
+            // Initialize application configuration
             ApplicationConfiguration.Initialize();
 
-            // Build configuration to include user secrets
             var builder = new ConfigurationBuilder()
-                .AddUserSecrets<System.Reflection.Assembly>()
-                .Build();
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddUserSecrets<Secrets>()
+                .AddEnvironmentVariables();
 
-            // Access user secrets
-            var dbUser = builder["dbUser"];
-            var dbPassword = builder["dbPassword"];
+            var configuration = builder.Build();
 
-            // Optionally, you can pass the secrets to your form or use them as needed
-            Application.Run(new InventoryScreen(dbUser, dbPassword));
+            var services = new ServiceCollection()
+                .Configure<Secrets>(configuration.GetSection(nameof(Secrets)))
+                .AddSingleton<DatabaseFunctions>()
+                .AddSingleton<AddUserForm>() // Register AddUserForm
+                .AddSingleton<LoginScreen>() // Register LoginScreen
+                .AddSingleton<InventoryScreen>() // Register InventoryScreen
+                .BuildServiceProvider();
+
+            var loginScreen = services.GetService<LoginScreen>();
+
+            Application.Run(loginScreen);
         }
     }
 }

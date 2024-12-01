@@ -1,23 +1,31 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using MySql.Data.MySqlClient;
 using System.Reflection.Metadata;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace InventoryManagementApp
 {
-    internal class DatabaseFunctions
+    public class DatabaseFunctions
     {
-        private string dbUser;
-        private string dbPassword;
-        private string connectionString;
+        private readonly string dbUser;
+        private readonly string dbPassword;
+        private readonly string connectionString;
 
-        public DatabaseFunctions(string dbUser, string dbPassword)
+        public DatabaseFunctions(IOptions<Secrets> options)
         {
-            this.dbUser = dbUser;
-            this.dbPassword = dbPassword;
-            this.connectionString = $"Server=192.168.1.217;Database=InventoryManagement;User ID={dbUser};Password={dbPassword};";
+            var secrets = options.Value;
+            dbUser = secrets.dbUser;
+            dbPassword = secrets.dbPassword;
+
+            // Debugging: Check if secrets are null
+            if (dbUser == null || dbPassword == null)
+            {
+                throw new Exception("User secrets not found. Ensure that the secrets are correctly set in secrets.json.");
+            }
+
+            connectionString = $"Server=192.168.1.217;Database=InventoryManagement;User ID={dbUser};Password={dbPassword};";
 
             // Initialize the database connection
             using (var connection = new MySqlConnection(connectionString))
