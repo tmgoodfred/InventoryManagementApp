@@ -31,6 +31,8 @@
             RefreshBtn = new Button();
             AddProductBtn = new Button();
             dataGridView1 = new DataGridView();
+            viewProductBtn = new Button();
+            getInventoryInformationBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -46,7 +48,7 @@
             // 
             // AddProductBtn
             // 
-            AddProductBtn.Location = new Point(977, 708);
+            AddProductBtn.Location = new Point(1001, 698);
             AddProductBtn.Name = "AddProductBtn";
             AddProductBtn.Size = new Size(97, 23);
             AddProductBtn.TabIndex = 1;
@@ -62,11 +64,33 @@
             dataGridView1.Size = new Size(1049, 669);
             dataGridView1.TabIndex = 2;
             // 
+            // viewProductBtn
+            // 
+            viewProductBtn.Location = new Point(49, 698);
+            viewProductBtn.Name = "viewProductBtn";
+            viewProductBtn.Size = new Size(99, 23);
+            viewProductBtn.TabIndex = 3;
+            viewProductBtn.Text = "View Product";
+            viewProductBtn.UseVisualStyleBackColor = true;
+            viewProductBtn.Click += viewProductBtn_Click;
+            // 
+            // getInventoryInformationBtn
+            // 
+            getInventoryInformationBtn.Location = new Point(724, 698);
+            getInventoryInformationBtn.Name = "getInventoryInformationBtn";
+            getInventoryInformationBtn.Size = new Size(120, 23);
+            getInventoryInformationBtn.TabIndex = 4;
+            getInventoryInformationBtn.Text = "Get Inventory Info";
+            getInventoryInformationBtn.UseVisualStyleBackColor = true;
+            getInventoryInformationBtn.Click += getInventoryInformationBtn_Click;
+            // 
             // InventoryScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1135, 759);
+            Controls.Add(getInventoryInformationBtn);
+            Controls.Add(viewProductBtn);
             Controls.Add(dataGridView1);
             Controls.Add(AddProductBtn);
             Controls.Add(RefreshBtn);
@@ -81,5 +105,7 @@
         private Button RefreshBtn;
         private Button AddProductBtn;
         private DataGridView dataGridView1;
+        private Button viewProductBtn;
+        private Button getInventoryInformationBtn;
     }
 }

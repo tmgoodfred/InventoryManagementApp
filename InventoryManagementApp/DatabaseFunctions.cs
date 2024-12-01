@@ -165,6 +165,8 @@ namespace InventoryManagementApp
             return false;
         }
 
+
+
         private string EncryptPassword(string password)
         {
             using (var sha256 = SHA256.Create())
@@ -210,6 +212,65 @@ namespace InventoryManagementApp
                 }
             }
             return productInventoryList;
+        }
+        public string GetUserAccessLevel(string userName)
+        {
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                var query = "SELECT AccessLevel FROM UserData WHERE UserName = @UserName";
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserName", userName);
+                    var accessLevel = command.ExecuteScalar() as string;
+                    return accessLevel;
+                }
+            }
+        }
+        public int GetTotalProductAmount()
+        {
+            int totalAmount = 0;
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                var query = "SELECT SUM(ProductAmount) FROM Inventory";
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    totalAmount = Convert.ToInt32(command.ExecuteScalar());
+                }
+            }
+            return totalAmount;
+        }
+        public decimal GetTotalInventoryValue()
+        {
+            decimal totalValue = 0;
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                var query = @"
+                    SELECT SUM(p.ProductPrice * i.ProductAmount) AS TotalValue
+                    FROM ProductData p
+                    JOIN Inventory i ON p.ProductID = i.ProductID";
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    totalValue = Convert.ToDecimal(command.ExecuteScalar());
+                }
+            }
+            return totalValue;
+        }
+        public int GetProductCount()
+        {
+            int productCount = 0;
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                var query = "SELECT COUNT(*) FROM ProductData";
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    productCount = Convert.ToInt32(command.ExecuteScalar());
+                }
+            }
+            return productCount;
         }
 
     }

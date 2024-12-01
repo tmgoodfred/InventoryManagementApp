@@ -15,6 +15,8 @@ namespace InventoryManagementApp
             // Populate access level combo box
             accessLevelComboBox.Items.AddRange(new string[] { "Admin", "Standard", "View-Only" });
             accessLevelComboBox.SelectedIndex = 0;
+
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void submitBtn_Click(object sender, EventArgs e)

@@ -6,11 +6,17 @@ namespace InventoryManagementApp
     {
         private readonly DatabaseFunctions _dbFunctions;
 
-        public InventoryScreen(DatabaseFunctions dbFunctions)
+        public InventoryScreen(DatabaseFunctions dbFunctions, string userAccessLevel)
         {
             InitializeComponent();
             _dbFunctions = dbFunctions;
             LoadData();
+
+            if (userAccessLevel == "View-Only")
+            {
+                AddProductBtn.Enabled = false;
+            }
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void LoadData()
@@ -33,6 +39,8 @@ namespace InventoryManagementApp
 
             // Bind the DataTable to the DataGridView
             dataGridView1.DataSource = table;
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void RefreshBtn_Click(object sender, EventArgs e)
@@ -43,8 +51,33 @@ namespace InventoryManagementApp
         private void AddProductBtn_Click(object sender, EventArgs e)
         {
             AddProductScreen addProductScreen = new AddProductScreen(_dbFunctions);
+            addProductScreen.FormClosed += (s, args) => LoadData();
             addProductScreen.Show();
-            LoadData();
+        }
+
+        private void viewProductBtn_Click(object sender, EventArgs e)
+        {
+            // Get the selected row
+            int rowIndex = dataGridView1.CurrentCell.RowIndex;
+            string productName = dataGridView1.Rows[rowIndex].Cells["ItemName"].Value.ToString();
+            var selectedProduct = _dbFunctions.GetProducts().FirstOrDefault(p => p.ProductName == productName);
+            if (selectedProduct != null)
+            {
+                ViewProductInformation viewProductInformation = new ViewProductInformation(selectedProduct);
+                viewProductInformation.Show();
+            }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            Application.Exit();
+        }
+
+        private void getInventoryInformationBtn_Click(object sender, EventArgs e)
+        {
+            InventoryInformationScreen inventoryInformationScreen = new InventoryInformationScreen(_dbFunctions);
+            inventoryInformationScreen.Show();
         }
     }
 }

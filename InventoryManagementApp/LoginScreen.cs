@@ -8,6 +8,7 @@
         {
             InitializeComponent();
             _dbFunctions = dbFunctions;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void signInBtn_Click(object sender, EventArgs e)
@@ -16,10 +17,10 @@
             if (signIn)
             {
                 // Open inventory screen
-                InventoryScreen inventoryScreen = new InventoryScreen(_dbFunctions);
+                string userAccessLevel = _dbFunctions.GetUserAccessLevel(usernameTxt.Text);
+                InventoryScreen inventoryScreen = new InventoryScreen(_dbFunctions, userAccessLevel);
+                inventoryScreen.Show();
                 this.Hide();
-                inventoryScreen.ShowDialog();
-                this.Show();
             }
             else
             {

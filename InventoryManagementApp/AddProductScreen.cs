@@ -12,6 +12,7 @@ namespace InventoryManagementApp
         {
             InitializeComponent();
             _dbFunctions = dbFunctions;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void addImageBtn_Click(object sender, EventArgs e)
