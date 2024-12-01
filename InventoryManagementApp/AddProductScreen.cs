@@ -1,4 +1,7 @@
-﻿namespace InventoryManagementApp
+﻿using System.Collections;
+using System.Reflection.Metadata;
+
+namespace InventoryManagementApp
 {
     public partial class AddProductScreen : Form
     {
@@ -43,7 +46,6 @@
             decimal productPrice = decimal.Parse(productPriceTxt.Text);
             int productQuantity = int.Parse(productQuantityTxt.Text);
 
-            // Assuming imageBytes is a class-level variable set in addImageBtn_Click
             byte[] productImage = imageBytes;
 
             // Add product to the database
@@ -60,6 +62,9 @@
                 Quantity = productQuantity
             };
             _dbFunctions.AddInventory(newInventory);
+
+            // Close the AddProductScreen form
+            this.Close();
         }
     }
 }

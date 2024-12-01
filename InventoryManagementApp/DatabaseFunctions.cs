@@ -70,10 +70,10 @@ namespace InventoryManagementApp
                             {
                                 ProductId = reader.GetInt32("ProductID"),
                                 ProductName = reader.GetString("ProductName"),
-                                ProductDescription = (Blob)reader["ProductDescription"],
+                                ProductDescription = Encoding.UTF8.GetString((byte[])reader["ProductDescription"]), // Corrected line
                                 DateAdded = reader.GetDateTime("DateAdded"),
                                 Price = reader.GetDecimal("ProductPrice"),
-                                ProductImage = (Blob)reader["ProductImage"]
+                                ProductImage = (byte[])reader["ProductImage"]
                             };
                             products.Add(product);
                         }
@@ -108,6 +108,8 @@ namespace InventoryManagementApp
             }
             return inventory;
         }
+
+
 
         public void AddInventory(Inventory item)
         {
@@ -176,5 +178,39 @@ namespace InventoryManagementApp
                 return builder.ToString();
             }
         }
+        public List<ProductInventory> GetProductInventory()
+        {
+            var productInventoryList = new List<ProductInventory>();
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                var query = @"
+            SELECT p.ProductID, p.ProductName, p.ProductDescription, p.DateAdded, p.ProductPrice, p.ProductImage, i.ProductAmount
+            FROM ProductData p
+            JOIN Inventory i ON p.ProductID = i.ProductID";
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var productInventory = new ProductInventory
+                            {
+                                ProductId = reader.GetInt32("ProductID"),
+                                ProductName = reader.GetString("ProductName"),
+                                ProductDescription = Encoding.UTF8.GetString((byte[])reader["ProductDescription"]), // Corrected line
+                                DateAdded = reader.GetDateTime("DateAdded"),
+                                Price = reader.GetDecimal("ProductPrice"),
+                                ProductImage = (byte[])reader["ProductImage"],
+                                Quantity = reader.GetInt32("ProductAmount")
+                            };
+                            productInventoryList.Add(productInventory);
+                        }
+                    }
+                }
+            }
+            return productInventoryList;
+        }
+
     }
 }

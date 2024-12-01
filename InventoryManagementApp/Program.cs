@@ -2,8 +2,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.Extensions.DependencyInjection;
 
-[assembly: UserSecretsId("8e301d9a-0bc0-48c9-b6c2-4cec06d799b4")]
-
 namespace InventoryManagementApp
 {
     internal static class Program

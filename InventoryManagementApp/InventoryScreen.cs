@@ -18,15 +18,17 @@ namespace InventoryManagementApp
             // Create a DataTable to hold the data
             DataTable table = new DataTable();
             table.Columns.Add("ItemName", typeof(string));
+            table.Columns.Add("Description", typeof(string));
+            table.Columns.Add("Price", typeof(decimal));
             table.Columns.Add("Quantity", typeof(int));
-            table.Columns.Add("LastUpdated", typeof(DateTime));
+            table.Columns.Add("Date Added", typeof(DateTime));
 
             // Fetch data using DatabaseFunctions class
-            var inventoryList = _dbFunctions.GetInventory();
+            var inventoryList = _dbFunctions.GetProductInventory();
 
             foreach (var item in inventoryList)
             {
-                table.Rows.Add(item.ProductID, item.Quantity, DateTime.Now); // Assuming LastUpdated is DateTime.Now for simplicity
+                table.Rows.Add(item.ProductName, item.ProductDescription, item.Price, item.Quantity, item.DateAdded);
             }
 
             // Bind the DataTable to the DataGridView

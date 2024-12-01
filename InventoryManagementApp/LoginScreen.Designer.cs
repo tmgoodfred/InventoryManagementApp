@@ -87,7 +87,7 @@
             passwordTxt.Name = "passwordTxt";
             passwordTxt.PasswordChar = '*';
             passwordTxt.Size = new Size(163, 23);
-            passwordTxt.TabIndex = 6;
+            passwordTxt.TabIndex = 1;
             // 
             // LoginScreen
             // 

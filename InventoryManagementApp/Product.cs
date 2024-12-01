@@ -11,9 +11,9 @@ namespace InventoryManagementApp
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
-        public Blob ProductDescription { get; set; }
+        public string ProductDescription { get; set; }
         public DateTime DateAdded { get; set; }
         public decimal Price { get; set; }
-        public Blob ProductImage { get; set; }
+        public byte[] ProductImage { get; set; }
     }
 }
