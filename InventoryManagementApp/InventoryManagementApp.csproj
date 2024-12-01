@@ -7,7 +7,12 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>947cc6e1-5e82-4ab1-81cc-4ff98ffcd2a1</UserSecretsId>
+    <ApplicationIcon>business_inventory_maintenance_product_box_boxes_2326.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="business_inventory_maintenance_product_box_boxes_2326.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
