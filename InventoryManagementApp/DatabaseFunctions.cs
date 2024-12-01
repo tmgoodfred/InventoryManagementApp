@@ -272,6 +272,21 @@ namespace InventoryManagementApp
             }
             return productCount;
         }
+        public void UpdateUserLastSignIn(string userName)
+        {
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                var query = "UPDATE UserData SET LastSignIn = @LastSignIn WHERE UserName = @UserName";
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@LastSignIn", DateTime.Now);
+                    command.Parameters.AddWithValue("@UserName", userName);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
 
     }
 }

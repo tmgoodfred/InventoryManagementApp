@@ -17,6 +17,7 @@
             if (signIn)
             {
                 // Open inventory screen
+                _dbFunctions.UpdateUserLastSignIn(usernameTxt.Text);    
                 string userAccessLevel = _dbFunctions.GetUserAccessLevel(usernameTxt.Text);
                 InventoryScreen inventoryScreen = new InventoryScreen(_dbFunctions, userAccessLevel);
                 inventoryScreen.Show();
